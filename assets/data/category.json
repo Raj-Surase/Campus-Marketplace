@@ -1,13 +1,8 @@
 [
-    { "id": "1", "name": "Electronics", "productIds": ["101", "102", "103"] },
-    { "id": "2", "name": "Clothing", "productIds": ["201", "202", "203"] },
-    { "id": "3", "name": "Home & Kitchen", "productIds": ["301", "302", "303"] },
-    { "id": "4", "name": "Beauty & Personal Care", "productIds": ["401", "402", "403"] },
-    { "id": "5", "name": "Sports & Outdoors", "productIds": ["501", "502", "503"] },
-    { "id": "6", "name": "Books", "productIds": ["601", "602", "603"] },
-    { "id": "7", "name": "Toys & Games", "productIds": ["701", "702", "703"] },
-    { "id": "8", "name": "Automotive", "productIds": ["801", "802", "803"] },
-    { "id": "9", "name": "Health & Wellness", "productIds": ["901", "902", "903"] },
-    { "id": "10", "name": "Office Supplies", "productIds": ["1001", "1002", "1003"] }
-  ]
+  { "id": "0", "name": "All"},
+  { "id": "1", "name": "Electronics"},
+  { "id": "2", "name": "Clothing"},
+  { "id": "3", "name": "Home & Kitchen"},
+  { "id": "4", "name": "Beauty & Personal Care"}
+]
   

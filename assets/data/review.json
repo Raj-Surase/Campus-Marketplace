@@ -1,0 +1,33 @@
+[
+    {
+      "id": "r101",
+      "product_id": "1",
+      "user_name": "John Doe",
+      "user_email": "johndoe@example.com",
+      "user_photo": "https://randomuser.me/api/portraits/men/1.jpg",
+      "rating": 5,
+      "comment": "Fantastic sound quality! Worth the price.",
+      "created_at": "2024-03-16T12:30:00Z"
+    },
+    {
+      "id": "r102",
+      "product_id": "1",
+      "user_name": "Jane Smith",
+      "user_email": "janesmith@example.com",
+      "user_photo": "https://randomuser.me/api/portraits/women/1.jpg",
+      "rating": 4,
+      "comment": "Good but the battery life could be better.",
+      "created_at": "2024-03-17T09:45:00Z"
+    },
+    {
+      "id": "r201",
+      "product_id": "2",
+      "user_name": "Michael Johnson",
+      "user_email": "michaelj@example.com",
+      "user_photo": "https://randomuser.me/api/portraits/men/2.jpg",
+      "rating": 5,
+      "comment": "Perfect for gaming! Very responsive and smooth.",
+      "created_at": "2024-03-10T15:20:00Z"
+    }
+  ]
+  

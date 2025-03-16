@@ -1,6 +1,9 @@
 import 'dart:ui';
 
+import 'package:campus_marketplace/screens/navigation/screens/home/widgets/product_vm.dart';
 import 'package:campus_marketplace/utils/provider/category_provider.dart';
+import 'package:campus_marketplace/utils/provider/product_provider.dart';
+import 'package:campus_marketplace/utils/provider/review_provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -45,8 +48,12 @@ Future<void> main() async {
         // ChangeNotifierProvider(create: (_) => NavigationProvider()),
         ChangeNotifierProvider(create: (_) => AuthenticationViewModel()),
         ChangeNotifierProvider(create: (_) => CategoryProvider()),
+        ChangeNotifierProvider(create: (_) => ProductViewModel()),
         ChangeNotifierProvider(
             create: (_) => userProvider), // ✅ Pass preloaded user data=
+            ChangeNotifierProvider(create: (context) => ProductProvider()..loadProducts()),
+        ChangeNotifierProvider(create: (context) => ReviewProvider()..loadReviews()),
+
       ],
       child: const MyApp(),
     ),

@@ -8,6 +8,7 @@ class CategoryProvider with ChangeNotifier {
 
   List<CategoryModel> get categories => _categories;
 
+  /// Load categories from JSON file
   Future<void> loadCategories() async {
     try {
       final String response = await rootBundle.loadString('assets/data/category.json');
@@ -20,4 +21,13 @@ class CategoryProvider with ChangeNotifier {
       }
     }
   }
+
+  /// Fetch category name based on `categoryId`
+  String? getCategoryName(String categoryId) {
+    return _categories.firstWhere(
+      (category) => category.id == categoryId,
+      orElse: () => CategoryModel(id: "", name: "Unknown"), // Default fallback
+    ).name;
+  }
 }
+

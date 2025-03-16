@@ -1,5 +1,6 @@
 import 'package:campus_marketplace/screens/navigation/screens/home/widgets/product_container.dart';
 import 'package:campus_marketplace/screens/navigation/screens/home/widgets/product_grid.dart';
+import 'package:campus_marketplace/screens/navigation/screens/home/widgets/product_vm.dart';
 import 'package:campus_marketplace/utils/model/product.dart';
 import 'package:campus_marketplace/utils/provider/category_provider.dart';
 import 'package:campus_marketplace/utils/widgets/category_button.dart';
@@ -34,6 +35,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final categoryProvider = Provider.of<CategoryProvider>(context);
+    final productViewModel = Provider.of<ProductViewModel>(context);
 
     return SingleChildScrollView(
       child: Column(
@@ -78,7 +80,9 @@ class _HomeScreenState extends State<HomeScreen> {
                           return CategoryButton(
                             title: category.name,
                             onTap: () {
-                              print("Selected: ${category.name}");
+                              category.id != "0" ?
+                              productViewModel.changeSelectedCategory(category.id)
+                              : productViewModel.changeSelectedCategory(null);
                             },
                           );
                         }).toList(),

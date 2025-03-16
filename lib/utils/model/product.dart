@@ -4,11 +4,12 @@ class ProductModel {
   final String description;
   final double price;
   final String imageUrl;
-  final String category;
+  final String categoryId; // Changed from category name to category ID
   final int stock;
   final double rating;
   final DateTime createdAt;
-  bool isLike = false; 
+  bool isLike = false;
+  final List<String> reviewIds; // List of associated review IDs
 
   ProductModel({
     required this.id,
@@ -16,10 +17,11 @@ class ProductModel {
     required this.description,
     required this.price,
     required this.imageUrl,
-    required this.category,
+    required this.categoryId, // Now stores category ID
     required this.stock,
     required this.rating,
     required this.createdAt,
+    required this.reviewIds, // Initialize list of reviews
   });
 
   // Factory constructor to create a ProductModel from JSON
@@ -30,10 +32,11 @@ class ProductModel {
       description: json['description'],
       price: (json['price'] as num).toDouble(),
       imageUrl: json['image_url'],
-      category: json['category'],
+      categoryId: json['category_id'], // Changed key from "category" to "category_id"
       stock: json['stock'] ?? 0,
       rating: (json['rating'] as num?)?.toDouble() ?? 0.0,
       createdAt: DateTime.parse(json['created_at']),
+      reviewIds: List<String>.from(json['review_ids'] ?? []), // Convert list of review IDs
     );
   }
 
@@ -43,7 +46,7 @@ class ProductModel {
     isLike = isLiked;
   }
 
-  // Method to convert a ProductModel to JSON
+  // Convert ProductModel to JSON
   Map<String, dynamic> toJson() {
     return {
       'id': id,
@@ -51,10 +54,11 @@ class ProductModel {
       'description': description,
       'price': price,
       'image_url': imageUrl,
-      'category': category,
+      'category_id': categoryId, // Use category ID instead of category name
       'stock': stock,
       'rating': rating,
       'created_at': createdAt.toIso8601String(),
+      'review_ids': reviewIds, // Convert review IDs to JSON
     };
   }
 
@@ -65,10 +69,11 @@ class ProductModel {
     String? description,
     double? price,
     String? imageUrl,
-    String? category,
+    String? categoryId, // Changed to category ID
     int? stock,
     double? rating,
     DateTime? createdAt,
+    List<String>? reviewIds,
   }) {
     return ProductModel(
       id: id ?? this.id,
@@ -76,10 +81,11 @@ class ProductModel {
       description: description ?? this.description,
       price: price ?? this.price,
       imageUrl: imageUrl ?? this.imageUrl,
-      category: category ?? this.category,
+      categoryId: categoryId ?? this.categoryId, // Ensure category ID is updated properly
       stock: stock ?? this.stock,
       rating: rating ?? this.rating,
       createdAt: createdAt ?? this.createdAt,
+      reviewIds: reviewIds ?? this.reviewIds, // Ensure review list is updated properly
     );
   }
 }

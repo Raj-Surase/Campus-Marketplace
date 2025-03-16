@@ -1,91 +1,62 @@
 [
-    {
-      "id": "1",
-      "name": "Wireless Bluetooth Headphones With High Quality Music",
-      "description": "High-quality wireless headphones with noise cancellation and 20-hour battery life.",
-      "price": 99.99,
-      "image_url": "https://images.unsplash.com/photo-1516321318423-f06f85e504b3",
-      "category": "Electronics",
-      "stock": 50,
-      "rating": 4.5,
-      "created_at": "2024-03-15T10:30:00Z"
-    },
-    {
-      "id": "2",
-      "name": "Gaming Mouse",
-      "description": "Ergonomic gaming mouse with customizable buttons and RGB lighting.",
-      "price": 49.99,
-      "image_url": "https://images.unsplash.com/photo-1593642634367-d91a135587b5",
-      "category": "Gaming Accessories",
-      "stock": 30,
-      "rating": 4.7,
-      "created_at": "2024-02-20T15:45:00Z"
-    },
-    {
-      "id": "3",
-      "name": "Smartwatch",
-      "description": "Feature-rich smartwatch with heart rate monitor and fitness tracking.",
-      "price": 149.99,
-      "image_url": "https://images.unsplash.com/photo-1605649511441-0c6f6d3a36aa",
-      "category": "Wearables",
-      "stock": 20,
-      "rating": 4.3,
-      "created_at": "2024-01-10T08:00:00Z"
-    },
-    {
-      "id": "4",
-      "name": "Mechanical Keyboard",
-      "description": "Mechanical gaming keyboard with RGB backlighting and programmable keys.",
-      "price": 89.99,
-      "image_url": "https://images.unsplash.com/photo-1593642632823-8f785ba67e45",
-      "category": "Computer Accessories",
-      "stock": 40,
-      "rating": 4.6,
-      "created_at": "2024-02-05T13:20:00Z"
-    },
-    {
-      "id": "5",
-      "name": "Portable Bluetooth Speaker",
-      "description": "Compact and powerful speaker with deep bass and long battery life.",
-      "price": 59.99,
-      "image_url": "https://images.unsplash.com/photo-1602941525424-47fd055165ef",
-      "category": "Audio",
-      "stock": 25,
-      "rating": 4.8,
-      "created_at": "2024-01-22T16:10:00Z"
-    },
-    {
-      "id": "6",
-      "name": "4K Ultra HD Smart TV",
-      "description": "55-inch smart TV with 4K resolution, HDR, and voice control support.",
-      "price": 699.99,
-      "image_url": "https://images.unsplash.com/photo-1584697964328-2b6aa174d68a",
-      "category": "Home Entertainment",
-      "stock": 15,
-      "rating": 4.4,
-      "created_at": "2024-01-30T12:00:00Z"
-    },
-    {
-      "id": "7",
-      "name": "DSLR Camera",
-      "description": "Professional DSLR camera with 24.1MP resolution and 4K video recording.",
-      "price": 899.99,
-      "image_url": "https://images.unsplash.com/photo-1519183071298-a2962d048e28",
-      "category": "Photography",
-      "stock": 10,
-      "rating": 4.7,
-      "created_at": "2024-02-10T09:30:00Z"
-    },
-    {
-      "id": "8",
-      "name": "Gaming Laptop",
-      "description": "High-performance gaming laptop with RTX 3070 GPU and 16GB RAM.",
-      "price": 1299.99,
-      "image_url": "https://images.unsplash.com/photo-1593642702821-c8da6771f0c6",
-      "category": "Computers",
-      "stock": 8,
-      "rating": 4.9,
-      "created_at": "2024-02-18T14:15:00Z"
-    }
-  ]
-  
+  {
+    "id": "1",
+    "name": "Wireless Bluetooth Headphones",
+    "description": "High-quality wireless headphones with noise cancellation and 20-hour battery life.",
+    "price": 99.99,
+    "image_url": "https://images.unsplash.com/photo-1516321318423-f06f85e504b3",
+    "category_id": "1",
+    "stock": 50,
+    "rating": 4.5,
+    "created_at": "2024-03-15T10:30:00Z",
+    "review_ids": ["r101", "r102", "r103"]
+  },
+  {
+    "id": "2",
+    "name": "Gaming Mouse",
+    "description": "Ergonomic gaming mouse with customizable buttons and RGB lighting.",
+    "price": 49.99,
+    "image_url": "https://images.unsplash.com/photo-1593642634367-d91a135587b5",
+    "category_id": "2",
+    "stock": 30,
+    "rating": 4.7,
+    "created_at": "2024-02-20T15:45:00Z",
+    "review_ids": ["r201", "r202"]
+  },
+  {
+    "id": "3",
+    "name": "Smartwatch",
+    "description": "Feature-rich smartwatch with heart rate monitor and fitness tracking.",
+    "price": 149.99,
+    "image_url": "https://images.unsplash.com/photo-1605649511441-0c6f6d3a36aa",
+    "category_id": "1",
+    "stock": 20,
+    "rating": 4.3,
+    "created_at": "2024-01-10T08:00:00Z",
+    "review_ids": ["r301"]
+  },
+  {
+    "id": "4",
+    "name": "Mechanical Keyboard",
+    "description": "Mechanical gaming keyboard with RGB backlighting and programmable keys.",
+    "price": 89.99,
+    "image_url": "https://images.unsplash.com/photo-1593642632823-8f785ba67e45",
+    "category_id": "3",
+    "stock": 40,
+    "rating": 4.6,
+    "created_at": "2024-02-05T13:20:00Z",
+    "review_ids": ["r401", "r402", "r403", "r404"]
+  },
+  {
+    "id": "5",
+    "name": "Portable Bluetooth Speaker",
+    "description": "Compact and powerful speaker with deep bass and long battery life.",
+    "price": 59.99,
+    "image_url": "https://images.unsplash.com/photo-1602941525424-47fd055165ef",
+    "category_id": "4",
+    "stock": 25,
+    "rating": 4.8,
+    "created_at": "2024-01-22T16:10:00Z",
+    "review_ids": ["r501", "r502"]
+  }
+]
