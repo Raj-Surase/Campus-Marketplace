@@ -5,12 +5,15 @@ import 'package:campus_marketplace/utils/model/product.dart';
 import 'package:campus_marketplace/utils/model/review.dart';
 import 'package:campus_marketplace/utils/provider/category_provider.dart';
 import 'package:campus_marketplace/utils/provider/review_provider.dart';
+import 'package:campus_marketplace/utils/provider/user_provider.dart';
 import 'package:campus_marketplace/utils/styles/app_colors.dart';
 import 'package:campus_marketplace/utils/styles/app_text_styles.dart';
 import 'package:campus_marketplace/utils/widgets/action_text_button.dart';
 import 'package:campus_marketplace/utils/widgets/category_button.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
 import 'package:provider/provider.dart';
 
 class ProductScreen extends StatefulWidget {
@@ -23,7 +26,14 @@ class ProductScreen extends StatefulWidget {
 }
 
 class _ProductScreenState extends State<ProductScreen> {
+  late UserProvider _userProvider;
+
   @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _userProvider = Provider.of<UserProvider>(context, listen: false);
+  }
+
   void initState() {
     super.initState();
     // Fetch reviews when screen initializes
@@ -31,25 +41,44 @@ class _ProductScreenState extends State<ProductScreen> {
         Provider.of<ReviewProvider>(context, listen: false).loadReviews());
   }
 
+  /// Toggle favorite status
+  Future<void> _toggleFavorite() async {
+    if (_userProvider.user == null) {
+      debugPrint("User not logged in.");
+      return;
+    }
+
+    List<String> favoriteIds = List.from(_userProvider.user!.favoriteIds ?? []);
+    bool isFavorited = favoriteIds.contains(widget.product.id);
+
+    setState(() {
+      widget.product.isLiked = !isFavorited;
+    });
+
+    if (isFavorited) {
+      favoriteIds.remove(widget.product.id);
+    } else {
+      favoriteIds.add(widget.product.id);
+    }
+
+    // Update favoriteIds in the database                                              
+    await _userProvider.updateFavoriteIds(favoriteIds);
+  }
+
   @override
   Widget build(BuildContext context) {
     final categoryProvider = Provider.of<CategoryProvider>(context);
-
-    
+    bool isFavorited = _userProvider.user?.favoriteIds.contains(widget.product.id) ?? false;
 
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: true,
         actions: [
           IconButton(
-            onPressed: () {
-              setState(() {
-                widget.product.isLiked = !widget.product.isLiked;
-              });
-            },
+            onPressed: _toggleFavorite,
             icon: Icon(
-              widget.product.isLiked ? Icons.favorite : Icons.favorite_border,
-              color: widget.product.isLiked
+              isFavorited ? Icons.favorite : Icons.favorite_border,
+              color: isFavorited
                   ? AppColors.redAccent(context)
                   : AppColors.textSecondary(context),
               size: AppSizes.iconSizeSmallValue,
@@ -80,25 +109,23 @@ class _ProductScreenState extends State<ProductScreen> {
                 ),
               ),
               SizedBox(height: AppSizes.paddingSmallValue),
-        
-        
+              
               // Product Name
               Text(widget.product.name, style: AppTextStyles.largeSubHeading(context)),
               SizedBox(height: AppSizes.paddingXSmallValue),
-        
+              
               // Product Description
               Text(widget.product.description, style: AppTextStyles.caption(context)),
-
+              
               SizedBox(height: AppSizes.paddingMediumValue),
               
               CategoryButton(
                 title: categoryProvider.getCategoryName(widget.product.categoryId) ?? "Unknown",
                 onTap: () {},
               ),
-
               
               SizedBox(height: AppSizes.paddingMediumValue),
-        
+              
               // Ratings Section
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -128,19 +155,19 @@ class _ProductScreenState extends State<ProductScreen> {
                   ),
                 ],
               ),
-        
+              
               SizedBox(height: AppSizes.paddingSmallValue),
-        
+              
               // Fetch and Display Reviews
               Consumer<ReviewProvider>(
                 builder: (context, reviewProvider, child) {
                   List<ReviewModel> productReviews =
                       reviewProvider.getReviewsByProductId(widget.product.id);
-        
+              
                   if (reviewProvider.isLoading) {
                     return Center(child: CircularProgressIndicator());
                   }
-        
+              
                   return productReviews.isEmpty
                       ? Text("No reviews yet.", style: AppTextStyles.body(context))
                       : Column(
@@ -157,7 +184,7 @@ class _ProductScreenState extends State<ProductScreen> {
           ),
         ),
       ),
-
+      
       // Bottom Bar with Price & Add to Cart
       bottomNavigationBar: BottomAppBar(
         child: Row(

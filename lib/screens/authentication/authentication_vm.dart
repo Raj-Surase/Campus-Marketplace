@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:campus_marketplace/utils/model/user.dart';
 import 'package:campus_marketplace/utils/provider/user_provider.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 class AuthenticationViewModel extends ChangeNotifier {
   final firebase.FirebaseAuth _auth = firebase.FirebaseAuth.instance;
@@ -42,21 +43,18 @@ class AuthenticationViewModel extends ChangeNotifier {
         return null;
       }
 
-      final GoogleSignInAuthentication googleAuth =
-          await googleUser.authentication;
+      final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
 
       if (googleAuth.idToken == null) {
         debugPrint("Google Sign-In failed: No ID Token.");
         return null;
       }
 
-      final firebase.OAuthCredential credential =
-          firebase.GoogleAuthProvider.credential(
+      final firebase.OAuthCredential credential = firebase.GoogleAuthProvider.credential(
         idToken: googleAuth.idToken,
       );
 
-      firebase.UserCredential userCredential =
-          await _auth.signInWithCredential(credential);
+      firebase.UserCredential userCredential = await _auth.signInWithCredential(credential);
 
       _firebaseUser = userCredential.user;
       if (_firebaseUser != null) {
@@ -78,19 +76,21 @@ class AuthenticationViewModel extends ChangeNotifier {
 
     // Check if the user exists in UserProvider
     if (_userProvider.user == null) {
-      // ✅ Use UserModel to structure new user data
+      // ✅ New user: Set favorite IDs as empty list
       final newUser = UserModel(
         firebaseUid: firebaseUser.uid,
         name: firebaseUser.displayName ?? '',
         email: firebaseUser.email ?? '',
         profileUrl: firebaseUser.photoURL,
         createdAt: DateTime.now(),
+        favoriteIds: [], // New users have empty favorites
       ).toJson(); // Convert to JSON for insertion
 
       await _userProvider.insertUser(newUser);
-      await _userProvider
-          .fetchUserByFirebaseUid(firebaseUser.uid); // Fetch new user
+      await _userProvider.fetchUserByFirebaseUid(firebaseUser.uid); // Fetch new user
     }
+
+    notifyListeners();
   }
 
   /// Fetch user details from Supabase and update UserProvider

@@ -49,6 +49,7 @@ Future<void> main() async {
         ChangeNotifierProvider(create: (_) => AuthenticationViewModel()),
         ChangeNotifierProvider(create: (_) => CategoryProvider()),
         ChangeNotifierProvider(create: (_) => ProductViewModel()),
+        ChangeNotifierProvider(create: (_) => UserProvider()),
         ChangeNotifierProvider(
             create: (_) => userProvider), // ✅ Pass preloaded user data=
             ChangeNotifierProvider(create: (context) => ProductProvider()..loadProducts()),

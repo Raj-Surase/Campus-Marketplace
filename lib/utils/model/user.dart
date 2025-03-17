@@ -4,6 +4,7 @@ class UserModel {
   final String? profileUrl; // Optional
   final DateTime createdAt;
   final String? firebaseUid; // New column
+  final List<String> favoriteIds; // New field for favorite product IDs
 
   UserModel({
     required this.name,
@@ -11,6 +12,7 @@ class UserModel {
     this.profileUrl,
     required this.createdAt,
     this.firebaseUid,
+    required this.favoriteIds, // Initialize new field
   });
 
   // Factory constructor to create a UserModel from JSON
@@ -21,6 +23,7 @@ class UserModel {
       profileUrl: json['profile_url'],
       createdAt: DateTime.parse(json['created_at']),
       firebaseUid: json['firebase_uid'],
+      favoriteIds: List<String>.from(json['favorite_ids'] ?? []), // Default to empty list if null
     );
   }
 
@@ -32,18 +35,18 @@ class UserModel {
       'profile_url': profileUrl,
       'created_at': createdAt.toIso8601String(),
       'firebase_uid': firebaseUid,
+      'favorite_ids': favoriteIds, // Include new field
     };
   }
 
   // ✅ Add a copyWith method to update fields safely
   UserModel copyWith({
-    String? id,
     String? name,
     String? email,
     String? profileUrl,
-    int? coins,
     DateTime? createdAt,
     String? firebaseUid,
+    List<String>? favoriteIds, // New field in copyWith
   }) {
     return UserModel(
       name: name ?? this.name,
@@ -51,6 +54,7 @@ class UserModel {
       profileUrl: profileUrl ?? this.profileUrl,
       createdAt: createdAt ?? this.createdAt,
       firebaseUid: firebaseUid ?? this.firebaseUid,
+      favoriteIds: favoriteIds ?? this.favoriteIds, // Ensure new field is updated properly
     );
   }
 }
