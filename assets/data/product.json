@@ -9,7 +9,8 @@
     "stock": 50,
     "rating": 4.5,
     "created_at": "2024-03-15T10:30:00Z",
-    "review_ids": ["r101", "r102", "r103"]
+    "review_ids": ["r101", "r102", "r103"],
+    "is_available": false
   },
   {
     "id": "2",
@@ -21,7 +22,8 @@
     "stock": 30,
     "rating": 4.7,
     "created_at": "2024-02-20T15:45:00Z",
-    "review_ids": ["r201", "r202"]
+    "review_ids": ["r201", "r202"],
+    "is_available": true
   },
   {
     "id": "3",
@@ -33,7 +35,8 @@
     "stock": 20,
     "rating": 4.3,
     "created_at": "2024-01-10T08:00:00Z",
-    "review_ids": ["r301"]
+    "review_ids": ["r301"],
+    "is_available": false
   },
   {
     "id": "4",
@@ -45,7 +48,8 @@
     "stock": 40,
     "rating": 4.6,
     "created_at": "2024-02-05T13:20:00Z",
-    "review_ids": ["r401", "r402", "r403", "r404"]
+    "review_ids": ["r401", "r402", "r403", "r404"],
+    "is_available": true
   },
   {
     "id": "5",
@@ -57,6 +61,7 @@
     "stock": 25,
     "rating": 4.8,
     "created_at": "2024-01-22T16:10:00Z",
-    "review_ids": ["r501", "r502"]
+    "review_ids": ["r501", "r502"],
+    "is_available": true
   }
 ]

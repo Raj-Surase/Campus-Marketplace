@@ -1,5 +1,5 @@
 import 'package:campus_marketplace/screens/authentication/authentication_vm.dart';
-import 'package:campus_marketplace/screens/navigation/screens/product/widgets/review_widget.dart';
+import 'package:campus_marketplace/screens/navigation/screens/home/product/widgets/review_widget.dart';
 import 'package:campus_marketplace/utils/constants/app_sizes.dart';
 import 'package:campus_marketplace/utils/model/product.dart';
 import 'package:campus_marketplace/utils/model/review.dart';

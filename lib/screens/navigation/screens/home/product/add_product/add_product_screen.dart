@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:campus_marketplace/screens/navigation/screens/add_product/widgets/reusable_image_picker.dart';
+import 'package:campus_marketplace/screens/navigation/screens/home/product/add_product/widgets/reusable_image_picker.dart';
 import 'package:campus_marketplace/utils/constants/app_sizes.dart';
 import 'package:campus_marketplace/utils/provider/category_provider.dart';
 import 'package:campus_marketplace/utils/styles/app_colors.dart';
@@ -20,6 +20,7 @@ class AddProductScreen extends StatefulWidget {
 class _AddProductScreenState extends State<AddProductScreen> {
   TextEditingController productNameController = TextEditingController();
   TextEditingController productPriceController = TextEditingController();
+  TextEditingController productQuantityController = TextEditingController();
 
   String? selectedOption = 'Rent'; // Default selection
   String? selectedCategory;
@@ -66,6 +67,18 @@ class _AddProductScreenState extends State<AddProductScreen> {
               ReusableTextField(
                 labelText: "Enter product name",
                 controller: productNameController,
+              ),
+        
+              SizedBox(height: AppSizes.paddingMediumValue),
+
+              Text(
+                "Quantity",
+                style: AppTextStyles.subHeading(context),
+              ),
+              SizedBox(height: AppSizes.paddingSmallValue),
+              ReusableTextField(
+                labelText: "Enter quantity",
+                controller: productQuantityController,
               ),
         
               SizedBox(height: AppSizes.paddingMediumValue),

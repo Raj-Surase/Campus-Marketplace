@@ -1,5 +1,7 @@
-import 'package:campus_marketplace/screens/navigation/screens/add_product/add_product_screen.dart';
-import 'package:campus_marketplace/screens/navigation/screens/product/product_screen.dart';
+import 'package:campus_marketplace/screens/navigation/screens/home/product/add_product/add_product_screen.dart';
+import 'package:campus_marketplace/screens/navigation/screens/dashboard/dashboard_screen.dart';
+import 'package:campus_marketplace/screens/navigation/screens/home/product/product_screen.dart';
+import 'package:campus_marketplace/screens/navigation/screens/notification/notification_screen.dart';
 import 'package:campus_marketplace/utils/model/product.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -20,6 +22,10 @@ class AppRoutes {
   static const String productRoute = "/product";
   static const String addProductRoute = "/create";
 
+  static const String dashboardRoute = "/dashboard";
+
+  static const String notificationRoute = "/notification";
+
   static final GoRouter router = GoRouter(
     initialLocation: initialRoute,
     refreshListenable: _RouterRefreshNotifier(),
@@ -38,6 +44,14 @@ class AppRoutes {
           GoRoute(
             path: homeRoute,
             builder: (context, state) => HomeScreen(),
+          ),
+          GoRoute(
+            path: dashboardRoute,
+            builder: (context, state) => DashboardScreen(),
+          ),
+          GoRoute(
+            path: notificationRoute,
+            builder: (context, state) => NotificationScreen(),
           ),
         ],
       ),

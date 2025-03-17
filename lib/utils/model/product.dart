@@ -4,12 +4,13 @@ class ProductModel {
   final String description;
   final double price;
   final String imageUrl;
-  final String categoryId; // Changed from category name to category ID
+  final String categoryId;
   final int stock;
   final double rating;
   final DateTime createdAt;
   bool isLike = false;
-  final List<String> reviewIds; // List of associated review IDs
+  final List<String> reviewIds;
+  final bool isAvailable; // New field
 
   ProductModel({
     required this.id,
@@ -17,11 +18,12 @@ class ProductModel {
     required this.description,
     required this.price,
     required this.imageUrl,
-    required this.categoryId, // Now stores category ID
+    required this.categoryId,
     required this.stock,
     required this.rating,
     required this.createdAt,
-    required this.reviewIds, // Initialize list of reviews
+    required this.reviewIds,
+    required this.isAvailable, // Initialize new field
   });
 
   // Factory constructor to create a ProductModel from JSON
@@ -32,11 +34,12 @@ class ProductModel {
       description: json['description'],
       price: (json['price'] as num).toDouble(),
       imageUrl: json['image_url'],
-      categoryId: json['category_id'], // Changed key from "category" to "category_id"
+      categoryId: json['category_id'],
       stock: json['stock'] ?? 0,
       rating: (json['rating'] as num?)?.toDouble() ?? 0.0,
       createdAt: DateTime.parse(json['created_at']),
-      reviewIds: List<String>.from(json['review_ids'] ?? []), // Convert list of review IDs
+      reviewIds: List<String>.from(json['review_ids'] ?? []),
+      isAvailable: json['is_available'] ?? true, // Default to true if not provided
     );
   }
 
@@ -54,11 +57,12 @@ class ProductModel {
       'description': description,
       'price': price,
       'image_url': imageUrl,
-      'category_id': categoryId, // Use category ID instead of category name
+      'category_id': categoryId,
       'stock': stock,
       'rating': rating,
       'created_at': createdAt.toIso8601String(),
-      'review_ids': reviewIds, // Convert review IDs to JSON
+      'review_ids': reviewIds,
+      'is_available': isAvailable, // Include new field
     };
   }
 
@@ -69,11 +73,12 @@ class ProductModel {
     String? description,
     double? price,
     String? imageUrl,
-    String? categoryId, // Changed to category ID
+    String? categoryId,
     int? stock,
     double? rating,
     DateTime? createdAt,
     List<String>? reviewIds,
+    bool? isAvailable, // New field in copyWith
   }) {
     return ProductModel(
       id: id ?? this.id,
@@ -81,11 +86,12 @@ class ProductModel {
       description: description ?? this.description,
       price: price ?? this.price,
       imageUrl: imageUrl ?? this.imageUrl,
-      categoryId: categoryId ?? this.categoryId, // Ensure category ID is updated properly
+      categoryId: categoryId ?? this.categoryId,
       stock: stock ?? this.stock,
       rating: rating ?? this.rating,
       createdAt: createdAt ?? this.createdAt,
-      reviewIds: reviewIds ?? this.reviewIds, // Ensure review list is updated properly
+      reviewIds: reviewIds ?? this.reviewIds,
+      isAvailable: isAvailable ?? this.isAvailable, // Ensure new field is updated properly
     );
   }
 }

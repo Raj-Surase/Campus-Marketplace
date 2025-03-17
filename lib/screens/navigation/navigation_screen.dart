@@ -1,3 +1,4 @@
+import 'package:campus_marketplace/screens/authentication/authentication_vm.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
@@ -13,7 +14,12 @@ class NavigationScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final navigationProvider = Provider.of<NavigationProvider>(context);
+    AuthenticationViewModel authenticationProvider =
+        Provider.of<AuthenticationViewModel>(context);
+    final user = authenticationProvider.firebaseUser;
+
+    NavigationProvider navigationProvider =
+        Provider.of<NavigationProvider>(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -35,10 +41,12 @@ class NavigationScreen extends StatelessWidget {
             },
             icon: Icon(
               Icons.add_circle_outline_rounded,
-              size: AppSizes.iconSizeSmallValue,
+              size: AppSizes.iconSizeMediumValue,
               color: AppColors.textPrimary(context),
             ),
           ),
+          
+                    
           IconButton(
             onPressed: () {
               showDialog(
@@ -48,11 +56,23 @@ class NavigationScreen extends StatelessWidget {
                 },
               );
             },
-            icon: Icon(
-              Icons.person,
-              size: AppSizes.iconSizeSmallValue,
-              color: AppColors.textPrimary(context),
-            ),
+            icon: ClipRRect(
+                      borderRadius: BorderRadius.circular(
+                          AppSizes.borderRadiusRoundValue),
+                      child: user?.photoURL != null
+                          ? Image.network(
+                              user!.photoURL!,
+                              height: AppSizes.iconSizeMediumValue,
+                              width: AppSizes.iconSizeMediumValue,
+                              fit: BoxFit.cover,
+                            )
+                          : Container(
+                              height: 40,
+                              width: 40,
+                              color: AppColors.blueAccent(context),
+                              child: Icon(Icons.person, color: Colors.white),
+                            ),
+                    ),
           ),
           SizedBox(
             width: AppSizes.paddingXSmallValue,
@@ -60,60 +80,69 @@ class NavigationScreen extends StatelessWidget {
         ],
       ),
       body: child,
-      // bottomNavigationBar: BottomNavigationBar(
-      //   selectedLabelStyle: AppTextStyles.body(context).copyWith(
-      //     color: AppColors.textPrimary(context),
-      //   ),
-      //   unselectedLabelStyle: AppTextStyles.caption(context).copyWith(
-      //     color: AppColors.textSecondary(context),
-      //     fontWeight: FontWeight.w400,
-      //   ),
-      //   selectedIconTheme: IconThemeData(
-      //     color: AppColors.textPrimary(context),
-      //     size: AppSizes.iconSizeSmallValue * 1.2,
-      //   ),
-      //   unselectedIconTheme: IconThemeData(
-      //     color: AppColors.textSecondary(context),
-      //     size: AppSizes.iconSizeSmallValue,
-      //   ),
-      //   currentIndex: navigationProvider.selectedIndex,
-      //   onTap: (index) => navigationProvider.setIndex(context, index),
-      //   items: [
-      //     BottomNavigationBarItem(
-      //       icon: Icon(
-      //         Icons.home,
-      //       ),
-      //       label: "Home",
-      //     ),
-      //     BottomNavigationBarItem(
-      //       icon: Icon(
-      //         Icons.wallet,
-      //       ),
-      //       label: "Wallet",
-      //     ),
-      //   ],
-      // ),
+      bottomNavigationBar: BottomNavigationBar(
+        selectedLabelStyle: AppTextStyles.body(context).copyWith(
+          color: AppColors.textPrimary(context),
+        ),
+        unselectedLabelStyle: AppTextStyles.caption(context).copyWith(
+          color: AppColors.textSecondary(context),
+          fontWeight: FontWeight.w400,
+        ),
+        selectedIconTheme: IconThemeData(
+          color: AppColors.textPrimary(context),
+          size: AppSizes.iconSizeSmallValue * 1.2,
+        ),
+        unselectedIconTheme: IconThemeData(
+          color: AppColors.textSecondary(context),
+          size: AppSizes.iconSizeSmallValue,
+        ),
+        currentIndex: navigationProvider.selectedIndex,
+        onTap: (index) => navigationProvider.setIndex(context, index),
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.home,
+            ),
+            label: "Home",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.notifications,
+            ),
+            label: "Notification",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.dashboard,
+            ),
+            label: "Dashboard",
+          ),
+        ],
+      ),
     );
   }
 }
 
-// class NavigationProvider extends ChangeNotifier {
-//   int _selectedIndex = 0;
+class NavigationProvider extends ChangeNotifier {
+  int _selectedIndex = 0;
 
-//   int get selectedIndex => _selectedIndex;
+  int get selectedIndex => _selectedIndex;
 
-//   void setIndex(BuildContext context, int index) {
-//     _selectedIndex = index;
-//     notifyListeners();
+  void setIndex(BuildContext context, int index) {
+    _selectedIndex = index;
+    notifyListeners();
 
-//     // Navigate to the corresponding route
-//     switch (index) {
-//       case 0:
-//         context.go(AppRoutes.homeRoute);
-//         break;
-//       case 1:
-//         context.go(AppRoutes.walletRoute);
-//         break;
-//     }
-//   }
-// }
+    // Navigate to the corresponding route
+    switch (index) {
+      case 0:
+        context.go(AppRoutes.homeRoute);
+        break;
+      case 1:
+        context.go(AppRoutes.notificationRoute);
+        break;
+      case 2:
+        context.go(AppRoutes.dashboardRoute);
+        break;
+    }
+  }
+}
