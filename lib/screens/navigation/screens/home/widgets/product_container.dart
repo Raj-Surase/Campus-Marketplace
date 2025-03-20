@@ -38,7 +38,7 @@ class _ProductContainerState extends State<ProductContainer> {
     bool isFavorited = favoriteIds.contains(widget.product.id);
 
     setState(() {
-      widget.product.isLiked = !isFavorited;
+      widget.product.isLike = !isFavorited;
     });
 
     if (isFavorited) {
@@ -57,7 +57,10 @@ class _ProductContainerState extends State<ProductContainer> {
         _userProvider.user?.favoriteIds.contains(widget.product.id) ?? false;
 
     return Opacity(
-      opacity: widget.product.isAvailable ? 1.0 : 0.5, // Reduce opacity if not available
+      opacity:
+          widget.product.isAvailable
+              ? 1.0
+              : 0.5, // Reduce opacity if not available
       child: SizedBox(
         width: MediaQuery.of(context).size.width * 0.45,
         child: GestureDetector(
@@ -77,8 +80,9 @@ class _ProductContainerState extends State<ProductContainer> {
                   child: Image.network(
                     widget.product.imageUrl,
                     fit: BoxFit.cover,
-                    errorBuilder: (context, error, stackTrace) =>
-                        Icon(Icons.broken_image, size: 100),
+                    errorBuilder:
+                        (context, error, stackTrace) =>
+                            Icon(Icons.broken_image, size: 100),
                   ),
                 ),
               ),
@@ -95,9 +99,9 @@ class _ProductContainerState extends State<ProductContainer> {
                       children: [
                         Text(
                           widget.product.name,
-                          style: AppTextStyles.body(context).copyWith(
-                            fontWeight: FontWeight.w700,
-                          ),
+                          style: AppTextStyles.body(
+                            context,
+                          ).copyWith(fontWeight: FontWeight.w700),
                           overflow: TextOverflow.ellipsis,
                           maxLines: 1,
                         ),
@@ -119,17 +123,22 @@ class _ProductContainerState extends State<ProductContainer> {
                     height: 40,
                     width: 40,
                     child: ClipRRect(
-                      borderRadius: BorderRadius.circular(AppSizes.borderRadiusLargeValue),
+                      borderRadius: BorderRadius.circular(
+                        AppSizes.borderRadiusLargeValue,
+                      ),
                       child: GestureDetector(
                         onTap: _toggleFavorite,
                         child: Container(
                           color: AppColors.cardBackground(context),
                           child: Center(
                             child: Icon(
-                              isFavorited ? Icons.favorite : Icons.favorite_border,
-                              color: isFavorited
-                                  ? AppColors.redAccent(context)
-                                  : AppColors.textSecondary(context),
+                              isFavorited
+                                  ? Icons.favorite
+                                  : Icons.favorite_border,
+                              color:
+                                  isFavorited
+                                      ? AppColors.redAccent(context)
+                                      : AppColors.textSecondary(context),
                               size: AppSizes.iconSizeSmallValue,
                             ),
                           ),

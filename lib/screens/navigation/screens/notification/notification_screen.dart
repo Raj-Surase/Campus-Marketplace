@@ -15,11 +15,19 @@ class NotificationScreen extends StatelessWidget {
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          ClipRRect(
-      borderRadius: BorderRadius.circular(
-        AppSizes.borderRadiusMediumValue,
+        children: [InterestedUserWidget()],
       ),
+    );
+  }
+}
+
+class InterestedUserWidget extends StatelessWidget {
+  const InterestedUserWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(AppSizes.borderRadiusMediumValue),
       child: Container(
         color: AppColors.containerBackground(context),
         padding: EdgeInsets.symmetric(
@@ -33,24 +41,19 @@ class NotificationScreen extends StatelessWidget {
                 AppSizes.borderRadiusSmallValue,
               ),
               child: SizedBox(
-                  height: AppSizes.iconSizeLargeValue,
-                  width: AppSizes.iconSizeLargeValue,
+                height: AppSizes.iconSizeLargeValue,
+                width: AppSizes.iconSizeLargeValue,
                 child: Image.network(
                   "https://images.unsplash.com/photo-1593642634367-d91a135587b5",
                   fit: BoxFit.cover,
                 ),
               ),
             ),
-            SizedBox(
-              width: AppSizes.paddingSmallValue,
-            ),
+            SizedBox(width: AppSizes.paddingSmallValue),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  "Raj Surase",
-                  style: AppTextStyles.body(context),
-                ),
+                Text("Raj Surase", style: AppTextStyles.body(context)),
                 Text(
                   "Interested in Product Name.",
                   style: AppTextStyles.caption(context),
@@ -59,16 +62,14 @@ class NotificationScreen extends StatelessWidget {
             ),
             Spacer(),
             TextButton(
-              onPressed: () async {
-                
-              },
-               child: Text(
+              onPressed: () async {},
+              child: Text(
                 "Chat",
-                style: AppTextStyles.body(context).copyWith(
-                  fontWeight: FontWeight.w800,
-                ),
-               ),
-               style: ButtonStyle(
+                style: AppTextStyles.body(
+                  context,
+                ).copyWith(fontWeight: FontWeight.w800),
+              ),
+              style: ButtonStyle(
                 backgroundColor: WidgetStatePropertyAll(
                   AppColors.blueAccent(context),
                 ),
@@ -78,7 +79,7 @@ class NotificationScreen extends StatelessWidget {
                     vertical: 8,
                   ),
                 ),
-               ),
+              ),
             ),
             // IconButton(
             //   onPressed: () async {
@@ -92,9 +93,6 @@ class NotificationScreen extends StatelessWidget {
             // ),
           ],
         ),
-      ),
-    ),
-        ],
       ),
     );
   }

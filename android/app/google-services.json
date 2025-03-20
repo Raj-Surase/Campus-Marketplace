@@ -14,11 +14,11 @@
       },
       "oauth_client": [
         {
-          "client_id": "893861858775-kh0m4c2nkrf200m29jpp9j7j7tnkthfj.apps.googleusercontent.com",
+          "client_id": "893861858775-qk62a84lsp15h1fckht4vue8ohe9rfvj.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.example.campus_marketplace",
-            "certificate_hash": "403bb92036aa64d20dfe791668c0b774b48812fb"
+            "certificate_hash": "12e40423869227ba3493d3db3cb66050da3b9edc"
           }
         },
         {

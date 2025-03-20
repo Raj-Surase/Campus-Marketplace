@@ -29,6 +29,7 @@ Future<void> main() async {
   );
 
   await Firebase.initializeApp(
+    name: "Campus Marketplace",
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
@@ -51,10 +52,14 @@ Future<void> main() async {
         ChangeNotifierProvider(create: (_) => ProductViewModel()),
         ChangeNotifierProvider(create: (_) => UserProvider()),
         ChangeNotifierProvider(
-            create: (_) => userProvider), // ✅ Pass preloaded user data=
-            ChangeNotifierProvider(create: (context) => ProductProvider()..loadProducts()),
-        ChangeNotifierProvider(create: (context) => ReviewProvider()..loadReviews()),
-
+          create: (_) => userProvider,
+        ), // ✅ Pass preloaded user data=
+        ChangeNotifierProvider(
+          create: (context) => ProductProvider()..loadProducts(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => ReviewProvider()..loadReviews(),
+        ),
       ],
       child: const MyApp(),
     ),
@@ -64,11 +69,11 @@ Future<void> main() async {
 class NoThumbScrollBehavior extends ScrollBehavior {
   @override
   Set<PointerDeviceKind> get dragDevices => {
-        PointerDeviceKind.touch,
-        PointerDeviceKind.mouse,
-        PointerDeviceKind.stylus,
-        PointerDeviceKind.trackpad,
-      };
+    PointerDeviceKind.touch,
+    PointerDeviceKind.mouse,
+    PointerDeviceKind.stylus,
+    PointerDeviceKind.trackpad,
+  };
 }
 
 class MyApp extends StatelessWidget {

@@ -3,8 +3,10 @@ class UserModel {
   final String email;
   final String? profileUrl; // Optional
   final DateTime createdAt;
-  final String? firebaseUid; // New column
+  final String? firebaseUid; // Firebase Authentication UID
+  final int coins; // User reward coins
   final List<String> favoriteIds; // New field for favorite product IDs
+  final List<String> productIds; // List of favorite product IDs
 
   UserModel({
     required this.name,
@@ -12,10 +14,12 @@ class UserModel {
     this.profileUrl,
     required this.createdAt,
     this.firebaseUid,
-    required this.favoriteIds, // Initialize new field
+    this.coins = 0, // Default to 0
+    required this.productIds,
+    required this.favoriteIds,
   });
 
-  // Factory constructor to create a UserModel from JSON
+  /// ✅ **Factory constructor to create a `UserModel` from JSON**
   factory UserModel.fromJson(Map<String, dynamic> json) {
     return UserModel(
       name: json['name'],
@@ -23,11 +27,18 @@ class UserModel {
       profileUrl: json['profile_url'],
       createdAt: DateTime.parse(json['created_at']),
       firebaseUid: json['firebase_uid'],
-      favoriteIds: List<String>.from(json['favorite_ids'] ?? []), // Default to empty list if null
+      coins: json['coins'] ?? 0, // Default value for coins
+      productIds:
+          json['product_ids'] != null
+              ? List<String>.from(json['product_ids'])
+              : [], // Ensure `productIds` is an empty list if null
+      favoriteIds: List<String>.from(
+        json['favorite_ids'] ?? [],
+      ), // Default to empty list if null
     );
   }
 
-  // Method to convert a UserModel to JSON
+  /// ✅ **Convert a `UserModel` instance to JSON**
   Map<String, dynamic> toJson() {
     return {
       'name': name,
@@ -35,18 +46,22 @@ class UserModel {
       'profile_url': profileUrl,
       'created_at': createdAt.toIso8601String(),
       'firebase_uid': firebaseUid,
-      'favorite_ids': favoriteIds, // Include new field
+      'coins': coins,
+      'product_ids': productIds, // Store as array
+      'favorite_ids': favoriteIds, // Store as array
     };
   }
 
-  // ✅ Add a copyWith method to update fields safely
+  /// ✅ **`copyWith` method to create a new instance with modified fields**
   UserModel copyWith({
     String? name,
     String? email,
     String? profileUrl,
     DateTime? createdAt,
     String? firebaseUid,
-    List<String>? favoriteIds, // New field in copyWith
+    int? coins,
+    List<String>? productIds,
+    List<String>? favoriteIds,
   }) {
     return UserModel(
       name: name ?? this.name,
@@ -54,7 +69,12 @@ class UserModel {
       profileUrl: profileUrl ?? this.profileUrl,
       createdAt: createdAt ?? this.createdAt,
       firebaseUid: firebaseUid ?? this.firebaseUid,
-      favoriteIds: favoriteIds ?? this.favoriteIds, // Ensure new field is updated properly
+      coins: coins ?? this.coins,
+      productIds:
+          productIds ?? List.from(this.productIds), // Ensure immutability
+      favoriteIds:
+          favoriteIds ??
+          this.favoriteIds, // Ensure new field is updated properly
     );
   }
 }

@@ -17,11 +17,12 @@ class UserProvider extends ChangeNotifier {
     _isLoading = true;
     notifyListeners();
 
-    final response = await _supabase
-        .from('users')
-        .select()
-        .eq('firebase_uid', firebaseUid)
-        .maybeSingle();
+    final response =
+        await _supabase
+            .from('users')
+            .select()
+            .eq('firebase_uid', firebaseUid)
+            .maybeSingle();
 
     _isLoading = false;
 

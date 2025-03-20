@@ -16,7 +16,9 @@ class ProductProvider with ChangeNotifier {
       _isLoading = true;
       notifyListeners();
 
-      final String response = await rootBundle.loadString('assets/data/product.json');
+      final String response = await rootBundle.loadString(
+        'assets/data/product.json',
+      );
       final List<dynamic> data = jsonDecode(response);
 
       _products = data.map((json) => ProductModel.fromJson(json)).toList();
@@ -28,5 +30,17 @@ class ProductProvider with ChangeNotifier {
       notifyListeners();
       print("Error loading products: $error");
     }
+  }
+
+  /// Get a single product by its ID
+  ProductModel? getProductById(String productId) {
+    return _products.firstWhere((product) => product.id == productId);
+  }
+
+  /// Get multiple products by their IDs
+  List<ProductModel> getProductsByIds(List<String> productIds) {
+    return _products
+        .where((product) => productIds.contains(product.id))
+        .toList();
   }
 }
